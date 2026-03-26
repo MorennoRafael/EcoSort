@@ -57,7 +57,7 @@ function DaurUlang() {
           >
 
             {/* overlay hanya mobile */}
-            <div className="absolute inset-0 bg-white/50 md:bg-transparent"></div>
+            <div className="absolute inset-0 bg-white/70 md:bg-transparent"></div>
 
             {/* content */}
             <div className="relative flex gap-4 items-start max-w-lg">
@@ -134,7 +134,7 @@ function DaurUlang() {
             }}
           >
 
-            <div className="absolute inset-0 bg-white/50 md:bg-transparent"></div>
+            <div className="absolute inset-0 bg-white/70 md:bg-transparent"></div>
 
             <div className="relative flex gap-4 items-start max-w-lg">
 
@@ -172,7 +172,7 @@ function DaurUlang() {
             }}
           >
 
-            <div className="absolute inset-0 bg-white/50 md:bg-transparent"></div>
+            <div className="absolute inset-0 bg-white/70 md:bg-transparent"></div>
 
             <div className="relative flex gap-4 items-start max-w-lg">
 

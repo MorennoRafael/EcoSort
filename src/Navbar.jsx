@@ -236,8 +236,38 @@ function Navbar() {
       {open && (
         <div
           ref={mobileMenuRef}
-          className="md:hidden px-4 pb-4 space-y-2 bg-white shadow"
+          className="md:hidden px-4 pb-4 space-y-3 bg-white shadow"
         >
+
+          {/* PROFILE MOBILE */}
+          {user && (
+            <div className="bg-green-50 rounded-xl p-3 flex items-center gap-3">
+
+              <img
+                src={userImg}
+                alt="user"
+                className="w-12 h-12 rounded-full border-2 border-green-500"
+              />
+
+              <div>
+                <p className="font-semibold text-gray-800">
+                  {user.nama}
+                </p>
+
+                <p className="text-xs text-gray-500">
+                  {user.email}
+                </p>
+
+                <p className="text-xs text-gray-500">
+                  {user.jk}
+                </p>
+              </div>
+
+            </div>
+          )}
+
+
+          {/* MENU */}
           {menus.map((item, i) => (
             <NavLink
               key={i}
@@ -245,17 +275,38 @@ function Navbar() {
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
                 `
-                block px-4 py-2 rounded-lg text-sm
-                ${isActive
+          block px-4 py-2 rounded-lg text-sm
+          ${isActive
                   ? "bg-gray-100 text-green-600"
                   : "text-gray-600 hover:bg-gray-50"
                 }
-                `
+          `
               }
             >
               {item.label}
             </NavLink>
           ))}
+
+
+          {/* LOGOUT MOBILE */}
+          {user && (
+            <button
+              onClick={handleLogout}
+              className="
+        w-full
+        text-left
+        px-4
+        py-2
+        text-red-500
+        font-medium
+        hover:bg-red-50
+        rounded-lg
+        "
+            >
+              Logout
+            </button>
+          )}
+
         </div>
       )}
 
