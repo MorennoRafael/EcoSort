@@ -26,6 +26,7 @@ function Navbar() {
   );
 
   const profileRef = useRef(null);
+  const mobileMenuRef = useRef(null);
 
   const handleLogout = () => {
     localStorage.removeItem("login");
@@ -38,10 +39,11 @@ function Navbar() {
     { to: "/scan", label: "Scan" },
     { to: "/reward", label: "Reward" },
     { to: "/about", label: "About" },
+    { to: "/content", label: "content" },
     { to: "/contact", label: "Contact" },
   ];
 
-  // klik luar → dropdown hilang
+  // klik luar
   useEffect(() => {
     function handleClickOutside(e) {
       if (
@@ -50,12 +52,16 @@ function Navbar() {
       ) {
         setOpenProfile(false);
       }
+
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(e.target)
+      ) {
+        setOpen(false);
+      }
     }
 
-    document.addEventListener(
-      "mousedown",
-      handleClickOutside
-    );
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       document.removeEventListener(
@@ -67,6 +73,8 @@ function Navbar() {
 
   return (
     <nav className="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
+
+      {/* CONTAINER */}
       <div className="max-w-5xl mx-auto px-3 sm:px-4 flex items-center justify-between py-3">
 
         {/* LOGO */}
@@ -74,7 +82,6 @@ function Navbar() {
           to="/"
           className="flex items-center gap-3 select-none"
         >
-
           <img
             src={logo}
             alt="logo"
@@ -84,11 +91,10 @@ function Navbar() {
           <span className="text-2xl font-bold text-green-600 tracking-wide">
             EcoSort
           </span>
-
         </Link>
 
 
-        {/* RIGHT SIDE */}
+        {/* RIGHT DESKTOP */}
         <div className="hidden md:flex items-center gap-6">
 
           {/* MENU */}
@@ -112,12 +118,14 @@ function Navbar() {
                   {item.label}
 
                   {isActive && (
-                    <span className="
+                    <span
+                      className="
                       absolute left-1/2 -translate-x-1/2
                       bottom-[-8px]
                       w-8 h-[3px]
                       bg-green-600 rounded-full
-                    "></span>
+                    "
+                    ></span>
                   )}
                 </NavLink>
               );
@@ -136,29 +144,72 @@ function Navbar() {
               onClick={() =>
                 setOpenProfile(!openProfile)
               }
-              className="w-10 h-10 rounded-full cursor-pointer border-2 border-green-500"
+              className="
+                w-10 h-10
+                rounded-full
+                cursor-pointer
+                border-2 border-green-500
+                hover:scale-105
+                transition
+              "
             />
 
             {openProfile && user && (
-              <div className="absolute right-0 mt-2 w-52 bg-white shadow-lg rounded-lg p-3">
+              <div
+                className="
+                absolute right-0 mt-3 w-64
+                bg-white
+                rounded-2xl
+                shadow-xl
+                border border-gray-100
+                overflow-hidden
+              "
+              >
 
-                <p className="font-bold">
-                  {user.nama}
-                </p>
+                {/* HEADER */}
+                <div className="flex items-center gap-3 p-4 bg-green-50">
 
-                <p className="text-sm">
-                  {user.email}
-                </p>
+                  <img
+                    src={userImg}
+                    alt="user"
+                    className="w-12 h-12 rounded-full border-2 border-green-500"
+                  />
 
-                <p className="text-sm">
-                  {user.jk}
-                </p>
+                  <div>
+                    <p className="font-semibold text-gray-800">
+                      {user.nama}
+                    </p>
 
-                <hr className="my-2" />
+                    <p className="text-xs text-gray-500">
+                      {user.email}
+                    </p>
+                  </div>
 
+                </div>
+
+                {/* INFO */}
+                <div className="px-4 py-3 text-sm text-gray-600">
+                  Gender :
+                  <span className="font-medium ml-1">
+                    {user.jk}
+                  </span>
+                </div>
+
+                <div className="border-t"></div>
+
+                {/* LOGOUT */}
                 <button
                   onClick={handleLogout}
-                  className="w-full text-left text-red-500"
+                  className="
+                  w-full
+                  text-left
+                  px-4
+                  py-3
+                  text-red-500
+                  font-medium
+                  hover:bg-red-50
+                  transition
+                  "
                 >
                   Logout
                 </button>
@@ -177,13 +228,16 @@ function Navbar() {
         >
           ☰
         </button>
+
       </div>
 
 
-      {/* MOBILE */}
+      {/* MOBILE MENU */}
       {open && (
-        <div className="md:hidden px-4 pb-4 space-y-2 bg-white shadow">
-
+        <div
+          ref={mobileMenuRef}
+          className="md:hidden px-4 pb-4 space-y-2 bg-white shadow"
+        >
           {menus.map((item, i) => (
             <NavLink
               key={i}
@@ -202,9 +256,9 @@ function Navbar() {
               {item.label}
             </NavLink>
           ))}
-
         </div>
       )}
+
     </nav>
   );
 }

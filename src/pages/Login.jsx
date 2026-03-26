@@ -8,6 +8,7 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -33,7 +34,11 @@ function Login() {
         JSON.stringify(user)
       );
 
-      navigate("/dashboard");
+      setLoading(true);
+
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1500);
 
     } else {
       alert("Email atau password salah");
@@ -149,8 +154,20 @@ function Login() {
         </form>
 
       </div>
+      {loading && (
+        <div className="fixed inset-0 bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center z-50">
 
+          <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+
+          <p className="mt-4 text-green-600 font-semibold">
+            Memuat Dashboard...
+          </p>
+
+        </div>
+      )}
     </div>
+
+
   );
 }
 

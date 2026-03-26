@@ -14,7 +14,11 @@ import Dashboard from "./pages/Dashboard";
 import Scan from "./pages/Scan";
 import Reward from "./pages/Reward";
 import About from "./pages/About";
+import Content from "./pages/Content";
 import Contact from "./pages/Contact";
+import ContentPlastik from "./pages/ContentPlastik";
+import ContentPemilahan from "./pages/ContentPemilahan";
+import ContentDaurUlang from "./pages/daur-ulang";
 
 function App() {
   const location = useLocation();
@@ -82,10 +86,64 @@ function App() {
         />
 
         <Route
+          path="/about"
+          element={
+            <ProtectedRoute>
+              <About />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/content"
+          element={
+            <ProtectedRoute>
+              <Content />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
           path="/contact"
           element={
             <ProtectedRoute>
               <Contact />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/contact"
+          element={
+            <ProtectedRoute>
+              <Contact />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/content/plastik"
+          element={
+            <ProtectedRoute>
+              <ContentPlastik />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/content/pemilahan"
+          element={
+            <ProtectedRoute>
+              <ContentPemilahan />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/content/daur-ulang"
+          element={
+            <ProtectedRoute>
+              <ContentDaurUlang />
             </ProtectedRoute>
           }
         />
